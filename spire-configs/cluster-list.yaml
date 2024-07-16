@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clusters
+  namespace: spire
+data:
+  clusters.conf: |
+    clusters= {       
+      "demo" = {
+        service_account_allow_list = ["spire:spire-agent"]
+       }
+      "edgeeeeeeeeeee" = {
+        service_account_allow_list = ["spire:spire-agent"]
+        kube_config_file = "/run/spire/kubeconfigs/edge01"
+      }
+    }
+     

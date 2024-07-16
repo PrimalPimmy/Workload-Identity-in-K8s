@@ -44,8 +44,8 @@ data:
     agent {
       data_dir = "/run/spire"
       log_level = "DEBUG"
-      server_address = "127.0.0.1"
-      server_port = "30243"
+      server_address = "172.18.0.4"
+      server_port = "30130"
       socket_path = "/run/spire/sockets/agent.sock"
       trust_bundle_path = "/run/spire/config/bootstrap.crt"
       trust_domain = "example.org"
@@ -53,9 +53,11 @@ data:
     }
 
     plugins {
+
+
       NodeAttestor "k8s_psat" {
         plugin_data {
-          cluster = "demo-cluster"
+          cluster = "demo"
         }
       }
 
@@ -132,10 +134,10 @@ spec:
           # you prefer that waits for a service to be up. This image is built
           # from https://github.com/lqhl/wait-for-it
           image: gcr.io/spiffe-io/wait-for-it
-          args: ["-t", "30", "127.0.0.1:30243"]
+          args: ["-t", "30", "172.18.0.4:30130"]
       containers:
         - name: spire-agent
-          image: ghcr.io/spiffe/spire-agent:1.6.1
+          image: ghcr.io/spiffe/spire-agent:1.6.2
           args: ["-config", "/run/spire/config/agent.conf"]
           env:
           - name: MY_NODE_NAME
